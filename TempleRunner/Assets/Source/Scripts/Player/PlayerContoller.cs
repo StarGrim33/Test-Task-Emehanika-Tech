@@ -6,7 +6,7 @@ public class PlayerContoller : MonoBehaviour
     private SwipeMovement _swipeMovement;
     private CharacterController _controller;
     private Vector3 _direction;
-    private float _speed = 15f;
+    private float _speed = 10f;
     private int _lineToMove = 1;
     private float _jumpForce = 10f;
     private float _gravity = -20f;
