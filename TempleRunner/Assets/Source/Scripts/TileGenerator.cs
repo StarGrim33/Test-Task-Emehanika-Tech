@@ -5,6 +5,7 @@ public class TileGenerator : MonoBehaviour
 {
     [SerializeField] private List<GameObject> _tilePrefabs;
     [SerializeField] private Transform _player;
+    [SerializeField] private Transform _container;
 
     private List<GameObject> _activeTiles;
     private Queue<GameObject> _tilePool;
@@ -21,7 +22,7 @@ public class TileGenerator : MonoBehaviour
         for (int i = 0; i < _poolSize; i++)
         {
             int tileIndex = i % _tilePrefabs.Count;
-            GameObject tile = Instantiate(_tilePrefabs[tileIndex], Vector3.zero, Quaternion.identity);
+            GameObject tile = Instantiate(_tilePrefabs[tileIndex], Vector3.zero, Quaternion.identity, _container);
             tile.SetActive(false);
             _tilePool.Enqueue(tile);
         }

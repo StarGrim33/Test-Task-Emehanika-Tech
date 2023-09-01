@@ -1,6 +1,6 @@
 using UnityEngine;
 
-[RequireComponent(typeof(CharacterController), typeof(SwipeMovement))]
+[RequireComponent(typeof(SwipeMovement))]
 public class PlayerContoller : MonoBehaviour
 {
     private SwipeMovement _swipeMovement;
