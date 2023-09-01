@@ -1,7 +1,7 @@
 using UnityEngine;
 
 [RequireComponent(typeof(SwipeMovement))]
-public class PlayerContoller : MonoBehaviour
+public class PlayerMovement : MonoBehaviour
 {
     private SwipeMovement _swipeMovement;
     private CharacterController _controller;
@@ -21,6 +21,9 @@ public class PlayerContoller : MonoBehaviour
 
     private void Update()
     {
+        if (GameStateHandler.Instance.CurrentGameState == GameState.Pause)
+            return;
+
         if (_swipeMovement.SwipeRight)
             if (_lineToMove < 2)
                 _lineToMove++;
@@ -50,6 +53,9 @@ public class PlayerContoller : MonoBehaviour
 
     private void FixedUpdate()
     {
+        if (GameStateHandler.Instance.CurrentGameState == GameState.Pause)
+            return;
+
         _direction.z = _speed;
         _direction.y += _gravity * Time.fixedDeltaTime;
         _controller.Move(_direction * Time.fixedDeltaTime);

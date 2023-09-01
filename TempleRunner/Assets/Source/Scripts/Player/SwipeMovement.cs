@@ -17,6 +17,9 @@ public class SwipeMovement : MonoBehaviour
 
     private void Update()
     {
+        if (GameStateHandler.Instance.CurrentGameState == GameState.Pause)
+            return;
+
         Tap = SwipeDown = SwipeUp = SwipeLeft = SwipeRight = false;
 
         ProcessInput();

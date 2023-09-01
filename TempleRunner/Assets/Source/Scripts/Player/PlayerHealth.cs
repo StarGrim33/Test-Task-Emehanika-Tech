@@ -1,15 +1,29 @@
 using UnityEngine;
 using UnityEngine.Events;
 
-public class PlayerHealth : UnitHealth, IDamageable, IHealable
+public class PlayerHealth : MonoBehaviour, IDamageable, IHealable
 {
+    private int _maxHealth = 3;
+    private int _currenHealth;
+
     public event UnityAction OnHealthReduced;
 
     public event UnityAction OnHealthAdded;
 
     public event UnityAction PlayerDead;
 
-    public int MaxHealth { get; private set; } = 3;
+    public int MaxHealth 
+    {
+        get
+        { 
+            return _maxHealth;
+        }
+
+        private set
+        {
+            _maxHealth = value;
+        } 
+    }
 
     public int CurrentHealth
     {
@@ -26,10 +40,16 @@ public class PlayerHealth : UnitHealth, IDamageable, IHealable
         }
     }
 
-    protected override void Die()
+    private void Awake()
+    {
+        _currenHealth = _maxHealth;
+        Debug.Log($"Health is {CurrentHealth}");
+    }
+
+    private void Die()
     {
         //_animator.SetTrigger(Constants.DeadState);
-        //StateManager.Instance.SetState(GameStates.Paused);
+        GameStateHandler.Instance.SetState(GameState.Pause);
         PlayerDead?.Invoke();
     }
 
@@ -42,8 +62,10 @@ public class PlayerHealth : UnitHealth, IDamageable, IHealable
 
     public void AddHealth()
     {
-        ++CurrentHealth;
-        OnHealthAdded?.Invoke();
-        Debug.Log($"Health is {CurrentHealth}");
+        if (CurrentHealth < MaxHealth)
+        {
+            CurrentHealth += 1;
+            OnHealthAdded?.Invoke();
+        }
     }
 }

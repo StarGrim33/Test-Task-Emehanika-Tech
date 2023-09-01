@@ -37,7 +37,7 @@ public class HealthBarView : MonoBehaviour
 
     private void SetStartHealth()
     {
-        for(int i = 0; i < _playerHealth.MaxHealth; i++)
+        for (int i = 0; i < _playerHealth.MaxHealth; i++)
         {
             GameObject heart = Instantiate(_heartPrefab, this.transform);
             _heartsList.Add(heart.GetComponent<Image>());
@@ -48,10 +48,9 @@ public class HealthBarView : MonoBehaviour
     {
         int heartFill = _playerHealth.CurrentHealth;
 
-        foreach(Image heart in _heartsList)
+        for (int i = 0; i < _heartsList.Count; i++)
         {
-            heart.fillAmount = heartFill;
-            heartFill--;
+            _heartsList[i].fillAmount = i < heartFill ? 1 : 0;
         }
     }
 
@@ -59,10 +58,9 @@ public class HealthBarView : MonoBehaviour
     {
         int heartFill = _playerHealth.CurrentHealth;
 
-        foreach (Image heart in _heartsList)
+        for (int i = 0; i < _heartsList.Count; i++)
         {
-            heart.fillAmount = heartFill;
-            heartFill++;
+            _heartsList[i].fillAmount = i < heartFill ? 1 : 0;
         }
     }
 }
