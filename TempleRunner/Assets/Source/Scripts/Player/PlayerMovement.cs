@@ -3,6 +3,9 @@ using UnityEngine;
 [RequireComponent(typeof(SwipeMovement))]
 public class PlayerMovement : MonoBehaviour
 {
+    [SerializeField] private float _speedIncreaseRate = 0.1f;
+
+    private float _maxSpeed = 40f;
     private SwipeMovement _swipeMovement;
     private CharacterController _controller;
     private Vector3 _direction;
@@ -35,6 +38,9 @@ public class PlayerMovement : MonoBehaviour
         if (_swipeMovement.SwipeUp)
             if (_controller.isGrounded)
                 Jump();
+
+        if (_speed < _maxSpeed)
+            _speed += _speedIncreaseRate * Time.deltaTime;
 
         Vector3 targetPosition = transform.position.z * transform.forward + transform.position.y * transform.up;
 
